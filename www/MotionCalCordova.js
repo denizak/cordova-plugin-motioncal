@@ -1,13 +1,13 @@
 var exec = require('cordova/exec');
 
-var MagCalibration = {
+var MotionCalibration = {
     updateBValue: function(value, successCallback, errorCallback) {
-        exec(successCallback, errorCallback, "MagCalibration", "updateBValue", [value]);
+        exec(successCallback, errorCallback, "MotionCalibration", "updateBValue", [value]);
     },
     
     getBValue: function(successCallback, errorCallback) {
-        exec(successCallback, errorCallback, "MagCalibration", "getBValue", []);
+        exec(successCallback, errorCallback, "MotionCalibration", "getBValue", []);
     }
 };
 
-module.exports = MagCalibration;
+module.exports = MotionCalibration;

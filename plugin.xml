@@ -11,7 +11,7 @@
             </feature>
         </config-file>
         <source-file src="src/ios/MotionCalCordova.m" />
-        <header-file src="src/ios/magcalibration.h" />
-        <source-file src="src/ios/magcalibration.c" />
+        <header-file src="src/ios/motioncalibration.h" />
+        <source-file src="src/ios/motioncalibration.c" />
     </platform>
 </plugin>

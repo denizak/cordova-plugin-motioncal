@@ -1,20 +1,20 @@
 /********* MotionCalCordova.m Cordova Plugin Implementation *******/
 
 #import <Cordova/CDV.h>
-#include "magcalibration.h"
+#include "motioncalibration.h"
 
-@interface MagCalibration : CDVPlugin
+@interface MotionCalibration : CDVPlugin
 
 - (void)updateBValue:(CDVInvokedUrlCommand*)command;
 - (void)getBValue:(CDVInvokedUrlCommand*)command;
 
 @end
 
-@implementation MagCalibration
+@implementation MotionCalibration
 
 - (void)pluginInitialize {
     // Initialize the C struct if needed
-    magcal.B = 0.0f;
+    motioncal.B = 0.0f;
 }
 
 - (void)updateBValue:(CDVInvokedUrlCommand*)command {
@@ -41,7 +41,7 @@
 }
 
 - (void)getBValue:(CDVInvokedUrlCommand*)command {
-    float bValue = magcal.B;
+    float bValue = motioncal.B;
     
     CDVPluginResult* pluginResult = [CDVPluginResult 
                                     resultWithStatus:CDVCommandStatus_OK
