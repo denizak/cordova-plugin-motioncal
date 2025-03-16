@@ -2,11 +2,13 @@
 
 #import <Cordova/CDV.h>
 #include "motioncalibration.h"
+#include "imuread.h"
 
 @interface MotionCalibration : CDVPlugin
 
 - (void)updateBValue:(CDVInvokedUrlCommand*)command;
 - (void)getBValue:(CDVInvokedUrlCommand*)command;
+- (void)isSendCalAvailableValue:(CDVInvokedUrlCommand*)command;
 
 @end
 
@@ -46,6 +48,16 @@
     CDVPluginResult* pluginResult = [CDVPluginResult 
                                     resultWithStatus:CDVCommandStatus_OK
                                     messageAsDouble:(double)bValue];
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)isSendCalAvailableValue:(CDVInvokedUrlCommand*)command {
+    short isSendCalAvailValue = is_send_cal_available();
+    
+    CDVPluginResult* pluginResult = [CDVPluginResult 
+                                    resultWithStatus:CDVCommandStatus_OK
+                                    messageAsDouble:(double)isSendCalAvailValue];
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }

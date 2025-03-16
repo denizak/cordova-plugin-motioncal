@@ -7,6 +7,10 @@ var MotionCalibration = {
     
     getBValue: function(successCallback, errorCallback) {
         exec(successCallback, errorCallback, "MotionCalibration", "getBValue", []);
+    },
+
+    isSendCalAvailableValue: function(successCallback, errorCallback) {
+        exec(successCallback, errorCallback, "MotionCalibration", "isSendcalAvailableValue", []);
     }
 };
 
