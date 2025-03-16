@@ -334,3 +334,9 @@ int send_calibration(void)
 	return write_ipc_file_data(buf, 68);
 }
 
+static short show_calibration_confirmed = 0;
+
+void calibration_confirmed(void)
+{
+	show_calibration_confirmed = 1;
+}
