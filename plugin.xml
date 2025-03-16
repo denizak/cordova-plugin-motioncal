@@ -16,6 +16,7 @@
         <source-file src="src/ios/imuread.h" />
         <source-file src="src/ios/mahony.c" />
         <source-file src="src/ios/matrix.c" />
+        <source-file src="src/ios/magcal.c" />
         <source-file src="src/ios/quality.c" />
         <source-file src="src/ios/rawdata.c" />
         <source-file src="src/ios/serialdata.c" />
