@@ -1,4 +1,4 @@
-/********* MotionCalCordova.m Cordova Plugin Implementation *******/
+/********* MotionCalibration.m Cordova Plugin Implementation *******/
 
 #import <Cordova/CDV.h>
 #include "motioncalibration.h"

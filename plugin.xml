@@ -10,7 +10,7 @@
                 <param name="ios-package" value="MotionCalibration" />
             </feature>
         </config-file>
-        <source-file src="src/ios/MotionCalCordova.m" />
+        <source-file src="src/ios/MotionCalibration.m" />
         <header-file src="src/ios/motioncalibration.h" />
         <source-file src="src/ios/motioncalibration.c" />
     </platform>
