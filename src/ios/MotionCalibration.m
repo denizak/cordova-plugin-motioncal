@@ -128,4 +128,19 @@ extern int send_calibration(void);
     }];
 }
 
+extern float quality_surface_gap_error(void);
+
+// Add this method to expose the function
+- (void)getQualitySurfaceGapError:(CDVInvokedUrlCommand*)command {
+    // Call the C function
+    float error = quality_surface_gap_error();
+    
+    // Return the result to JavaScript
+    CDVPluginResult* pluginResult = [CDVPluginResult 
+        resultWithStatus:CDVCommandStatus_OK 
+        messageAsDouble:(double)error];
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 @end
