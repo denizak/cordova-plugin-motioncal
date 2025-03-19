@@ -94,6 +94,8 @@ typedef struct {
 
 extern MagCalibration_t magcal;
 
+extern char *result_filename;
+
 void f3x3matrixAeqI(float A[][3]);
 void fmatrixAeqI(float *A[], int16_t rc);
 void f3x3matrixAeqScalar(float A[][3], float Scalar);
