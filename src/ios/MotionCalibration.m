@@ -15,8 +15,7 @@
 @implementation MotionCalibration
 
 - (void)pluginInitialize {
-    // Initialize the C struct if needed
-    motioncal.B = 0.0f;
+    motioncal.B = 0.0f; // we could delete this later
 }
 
 - (void)updateBValue:(CDVInvokedUrlCommand*)command {
@@ -112,7 +111,6 @@ extern int read_ipc_file_data(const char *filename);
 
 extern int send_calibration(void);
 
-// Add this method to expose the function
 - (void)sendCalibration:(CDVInvokedUrlCommand*)command {
     // Call the C function on a background thread to avoid blocking the main thread
     [self.commandDelegate runInBackground:^{
@@ -130,7 +128,6 @@ extern int send_calibration(void);
 
 extern float quality_surface_gap_error(void);
 
-// Add this method to expose the function
 - (void)getQualitySurfaceGapError:(CDVInvokedUrlCommand*)command {
     // Call the C function
     float error = quality_surface_gap_error();
@@ -139,6 +136,19 @@ extern float quality_surface_gap_error(void);
     CDVPluginResult* pluginResult = [CDVPluginResult 
         resultWithStatus:CDVCommandStatus_OK 
         messageAsDouble:(double)error];
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+extern void raw_data_reset(void);
+
+- (void)resetRawData:(CDVInvokedUrlCommand*)command {
+    // Call the C function
+    raw_data_reset();
+    
+    // Return success to JavaScript
+    CDVPluginResult* pluginResult = [CDVPluginResult 
+        resultWithStatus:CDVCommandStatus_OK];
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }

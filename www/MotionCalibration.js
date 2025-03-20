@@ -16,7 +16,7 @@ var MotionCalibration = {
     /**
      * Read data from specified file and process it
      * 
-     * @param {String} filename - Path to the file to read
+     * @param {String} filename - Name to the file to read
      * @param {Function} successCallback - Success callback with result
      * @param {Function} errorCallback - Error callback
      */
@@ -37,9 +37,6 @@ var MotionCalibration = {
 
     /**
      * Send the calibration data
-     * 
-     * @param {Function} successCallback - Success callback with result
-     * @param {Function} errorCallback - Error callback
      */
     sendCalibration: function(successCallback, errorCallback) {
         exec(successCallback, errorCallback, "MotionCalibration", "sendCalibration", []);
@@ -47,13 +44,19 @@ var MotionCalibration = {
 
     /**
      * Get the quality surface gap error metric
-     * 
-     * @param {Function} successCallback - Success callback with error value
-     * @param {Function} errorCallback - Error callback
      */
     getQualitySurfaceGapError: function(successCallback, errorCallback) {
         exec(successCallback, errorCallback, "MotionCalibration", "getQualitySurfaceGapError", []);
     },
+
+
+    /**
+     * Reset all raw data and calibration values
+     */
+    resetRawData: function(successCallback, errorCallback) {
+        exec(successCallback, errorCallback, "MotionCalibration", "resetRawData", []);
+    };
+
 };
 
 module.exports = MotionCalibration;

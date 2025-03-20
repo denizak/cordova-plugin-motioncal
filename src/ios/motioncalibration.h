@@ -10,3 +10,4 @@ extern MotionCalibration_t motioncal;
 void updateBValue(float B);
 
 #endif
+// we could remove the whole file later, as this just a sample
