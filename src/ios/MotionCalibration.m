@@ -110,6 +110,7 @@ extern int read_ipc_file_data(const char *filename);
     }
 }
 
+extern void raw_data_reset(void);
 extern int send_calibration(void);
 
 // Add this method to expose the function
@@ -118,6 +119,7 @@ extern int send_calibration(void);
     [self.commandDelegate runInBackground:^{
         // Call the send_calibration function
         int result = send_calibration();
+        raw_data_reset();
         
         // Return the result to JavaScript
         CDVPluginResult* pluginResult = [CDVPluginResult 
