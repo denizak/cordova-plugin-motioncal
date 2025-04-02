@@ -54,6 +54,17 @@ var MotionCalibration = {
     getQualitySurfaceGapError: function(successCallback, errorCallback) {
         exec(successCallback, errorCallback, "MotionCalibration", "getQualitySurfaceGapError", []);
     },
+
+    /**
+     * Get the quality magnitude variance error metric
+     * 
+     * @param {Function} successCallback - Success callback with error value
+     * @param {Function} errorCallback - Error callback
+     */
+    getQualityMagnitudeVarianceError: function(successCallback, errorCallback) {
+        exec(successCallback, errorCallback, "MotionCalibration", "getQualityMagnitudeVarianceError", []);
+    },
+
 };
 
 module.exports = MotionCalibration;

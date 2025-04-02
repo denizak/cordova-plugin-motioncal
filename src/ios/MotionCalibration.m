@@ -9,6 +9,11 @@
 - (void)updateBValue:(CDVInvokedUrlCommand*)command;
 - (void)getBValue:(CDVInvokedUrlCommand*)command;
 - (void)isSendCalAvailableValue:(CDVInvokedUrlCommand*)command;
+- (void)readDataFromFile:(CDVInvokedUrlCommand*)command;
+- (void)setResultFilename:(CDVInvokedUrlCommand*)command;
+- (void)sendCalibration:(CDVInvokedUrlCommand*)command;
+- (void)getQualitySurfaceGapError:(CDVInvokedUrlCommand*)command;
+- (void)getQualityMagnitudeVarianceError:(CDVInvokedUrlCommand*)command;
 
 @end
 
@@ -136,6 +141,20 @@ extern float quality_surface_gap_error(void);
 - (void)getQualitySurfaceGapError:(CDVInvokedUrlCommand*)command {
     // Call the C function
     float error = quality_surface_gap_error();
+    
+    // Return the result to JavaScript
+    CDVPluginResult* pluginResult = [CDVPluginResult 
+        resultWithStatus:CDVCommandStatus_OK 
+        messageAsDouble:(double)error];
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+extern float quality_magnitude_variance_error(void);
+
+- (void)getQualityMagnitudeVarianceError:(CDVInvokedUrlCommand*)command {
+    // Call the C function
+    float error = quality_magnitude_variance_error();
     
     // Return the result to JavaScript
     CDVPluginResult* pluginResult = [CDVPluginResult 
