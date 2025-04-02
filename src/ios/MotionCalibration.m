@@ -15,6 +15,7 @@
 - (void)getQualitySurfaceGapError:(CDVInvokedUrlCommand*)command;
 - (void)getQualityMagnitudeVarianceError:(CDVInvokedUrlCommand*)command;
 - (void)getQualityWobbleError:(CDVInvokedUrlCommand*)command;
+- (void)getQualitySphericalFitError:(CDVInvokedUrlCommand*)command;
 
 @end
 
@@ -170,6 +171,20 @@ extern float quality_wobble_error(void);
 - (void)getQualityWobbleError:(CDVInvokedUrlCommand*)command {
     // Call the C function
     float error = quality_wobble_error();
+    
+    // Return the result to JavaScript
+    CDVPluginResult* pluginResult = [CDVPluginResult 
+        resultWithStatus:CDVCommandStatus_OK 
+        messageAsDouble:(double)error];
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+extern float quality_spherical_fit_error(void);
+
+- (void)getQualitySphericalFitError:(CDVInvokedUrlCommand*)command {
+    // Call the C function
+    float error = quality_spherical_fit_error();
     
     // Return the result to JavaScript
     CDVPluginResult* pluginResult = [CDVPluginResult 
