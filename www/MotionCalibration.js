@@ -65,6 +65,15 @@ var MotionCalibration = {
         exec(successCallback, errorCallback, "MotionCalibration", "getQualityMagnitudeVarianceError", []);
     },
 
+    /**
+     * Get the quality wobble error metric
+     * 
+     * @param {Function} successCallback - Success callback with error value
+     * @param {Function} errorCallback - Error callback
+     */
+    getQualityWobbleError: function(successCallback, errorCallback) {
+        exec(successCallback, errorCallback, "MotionCalibration", "getQualityWobbleError", []);
+    },
 };
 
 module.exports = MotionCalibration;
