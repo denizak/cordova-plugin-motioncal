@@ -143,6 +143,9 @@ extern float quality_surface_gap_error(void);
 - (void)getQualitySurfaceGapError:(CDVInvokedUrlCommand*)command {
     // Call the C function
     float error = quality_surface_gap_error();
+    if (isnan(error)) {
+        error = 100.0f;
+    }
     
     // Return the result to JavaScript
     CDVPluginResult* pluginResult = [CDVPluginResult 
@@ -157,7 +160,10 @@ extern float quality_magnitude_variance_error(void);
 - (void)getQualityMagnitudeVarianceError:(CDVInvokedUrlCommand*)command {
     // Call the C function
     float error = quality_magnitude_variance_error();
-    
+    if (isnan(error)) {
+        error = 100.0f;
+    } 
+
     // Return the result to JavaScript
     CDVPluginResult* pluginResult = [CDVPluginResult 
         resultWithStatus:CDVCommandStatus_OK 
@@ -171,6 +177,9 @@ extern float quality_wobble_error(void);
 - (void)getQualityWobbleError:(CDVInvokedUrlCommand*)command {
     // Call the C function
     float error = quality_wobble_error();
+    if (isnan(error)) {
+        error = 100.0f;
+    }
     
     // Return the result to JavaScript
     CDVPluginResult* pluginResult = [CDVPluginResult 
@@ -185,6 +194,9 @@ extern float quality_spherical_fit_error(void);
 - (void)getQualitySphericalFitError:(CDVInvokedUrlCommand*)command {
     // Call the C function
     float error = quality_spherical_fit_error();
+    if (isnan(error)) {
+        error = 100.0f;
+    }
     
     // Return the result to JavaScript
     CDVPluginResult* pluginResult = [CDVPluginResult 
