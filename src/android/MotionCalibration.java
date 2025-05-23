@@ -37,7 +37,8 @@ public class MotionCalibration extends CordovaPlugin {
                     
                 case "getBValue":
                     float result = getBValueNative();
-                    callbackContext.success((double) result);
+                    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, result);
+                    callbackContext.sendPluginResult(pluginResult);
                     return true;
                     
                 case "isSendCalAvailableValue":
@@ -75,7 +76,8 @@ public class MotionCalibration extends CordovaPlugin {
                     if (Float.isNaN(gapError)) {
                         gapError = 100.0f;
                     }
-                    callbackContext.success((double) gapError);
+                    PluginResult gapResult = new PluginResult(PluginResult.Status.OK, gapError);
+                    callbackContext.sendPluginResult(gapResult);
                     return true;
                     
                 case "getQualityMagnitudeVarianceError":
@@ -83,7 +85,8 @@ public class MotionCalibration extends CordovaPlugin {
                     if (Float.isNaN(varianceError)) {
                         varianceError = 100.0f;
                     }
-                    callbackContext.success((double) varianceError);
+                    PluginResult varianceResult = new PluginResult(PluginResult.Status.OK, varianceError);
+                    callbackContext.sendPluginResult(varianceResult);
                     return true;
                     
                 case "getQualityWobbleError":
@@ -91,7 +94,8 @@ public class MotionCalibration extends CordovaPlugin {
                     if (Float.isNaN(wobbleError)) {
                         wobbleError = 100.0f;
                     }
-                    callbackContext.success((double) wobbleError);
+                    PluginResult wobbleResult = new PluginResult(PluginResult.Status.OK, wobbleError);
+                    callbackContext.sendPluginResult(wobbleResult);
                     return true;
                     
                 case "getQualitySphericalFitError":
@@ -99,7 +103,8 @@ public class MotionCalibration extends CordovaPlugin {
                     if (Float.isNaN(fitError)) {
                         fitError = 100.0f;
                     }
-                    callbackContext.success((double) fitError);
+                    PluginResult fitResult = new PluginResult(PluginResult.Status.OK, fitError);
+                    callbackContext.sendPluginResult(fitResult);
                     return true;
                     
                 default:
