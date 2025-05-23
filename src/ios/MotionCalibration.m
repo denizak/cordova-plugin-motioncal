@@ -1,8 +1,8 @@
 /********* MotionCalibration.m Cordova Plugin Implementation *******/
 
 #import <Cordova/CDV.h>
-#include "motioncalibration.h"
-#include "imuread.h"
+#include "../common/motioncalibration.h"
+#include "../common/imuread.h"
 
 @interface MotionCalibration : CDVPlugin
 

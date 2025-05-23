@@ -1,11 +1,14 @@
 #include <jni.h>
 #include <android/log.h>
-#include "../../ios/motioncalibration.h"
-#include "../../ios/imuread.h"
+#include "../../common/motioncalibration.h"
+#include "../../common/imuread.h"
 
 #define LOG_TAG "MotionCalibration"
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+
+// Global variable to store the filename
+static char *stored_result_filename = NULL;
 
 JNIEXPORT void JNICALL
 Java_com_denizak_motioncalibration_MotionCalibration_updateBValueNative(JNIEnv *env, jobject thiz, jfloat b_value) {
@@ -43,12 +46,20 @@ Java_com_denizak_motioncalibration_MotionCalibration_setResultFilenameNative(JNI
     const char *nativeFilename = (*env)->GetStringUTFChars(env, filename, 0);
     LOGI("Setting result filename: %s", nativeFilename);
     
-    // You may need to store this filename in a global variable
-    // depending on how your C code handles it
-    result_filename = nativeFilename;
+    // Free previous filename if it exists
+    if (stored_result_filename != NULL) {
+        free(stored_result_filename);
+    }
     
-    // Don't release the string if you're storing the pointer
-    // (*env)->ReleaseStringUTFChars(env, filename, nativeFilename);
+    // Allocate memory and copy the string
+    stored_result_filename = malloc(strlen(nativeFilename) + 1);
+    if (stored_result_filename != NULL) {
+        strcpy(stored_result_filename, nativeFilename);
+        // Set the global result_filename pointer
+        result_filename = stored_result_filename;
+    }
+    
+    (*env)->ReleaseStringUTFChars(env, filename, nativeFilename);
 }
 
 JNIEXPORT jint JNICALL
