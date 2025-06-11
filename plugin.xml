@@ -32,7 +32,6 @@
         <source-file src="src/android/MotionCalibration.java" target-dir="src/com/denizak/motioncalibration" />
         <source-file src="src/android/jni" target-dir="jni" />
     
-        <lib-file src="src/android/libs/riscv64/libmotioncalibration.so" />
         <lib-file src="src/android/libs/armeabi-v7a/libmotioncalibration.so" />
         <lib-file src="src/android/libs/arm64-v8a/libmotioncalibration.so" />
         <lib-file src="src/android/libs/x86/libmotioncalibration.so" />
