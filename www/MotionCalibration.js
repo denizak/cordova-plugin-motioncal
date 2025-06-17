@@ -84,6 +84,16 @@ var MotionCalibration = {
     getQualitySphericalFitError: function(successCallback, errorCallback) {
         exec(successCallback, errorCallback, "MotionCalibration", "getQualitySphericalFitError", []);
     },
+
+    /**
+     * Display the callback for motion calibration
+     * 
+     * @param {Function} successCallback - Success callback with result
+     * @param {Function} errorCallback - Error callback
+     */
+    displayCallback: function(successCallback, errorCallback) {
+        exec(successCallback, errorCallback, "MotionCalibration", "displayCallback", []);
+    },
 };
 
 module.exports = MotionCalibration;

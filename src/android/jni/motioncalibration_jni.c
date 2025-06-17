@@ -71,6 +71,12 @@ Java_com_denizak_motioncalibration_MotionCalibration_sendCalibrationNative(JNIEn
     return (jint)result;
 }
 
+JNIEXPORT void JNICALL
+Java_com_denizak_motioncalibration_MotionCalibration_displayCallbackNative(JNIEnv *env, jobject thiz) {
+    LOGI("display callback");
+    display_callback();
+}
+
 JNIEXPORT jfloat JNICALL
 Java_com_denizak_motioncalibration_MotionCalibration_getQualitySurfaceGapErrorNative(JNIEnv *env, jobject thiz) {
     float result = quality_surface_gap_error();

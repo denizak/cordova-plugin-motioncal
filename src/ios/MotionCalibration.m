@@ -206,4 +206,17 @@ extern float quality_spherical_fit_error(void);
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+extern void display_callback(void);
+
+- (void)displayCallback:(CDVInvokedUrlCommand*)command {
+    // Call the C function
+    display_callback();
+    
+    // Return success to JavaScript
+    CDVPluginResult* pluginResult = [CDVPluginResult 
+        resultWithStatus:CDVCommandStatus_OK];
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 @end

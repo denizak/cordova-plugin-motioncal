@@ -24,6 +24,7 @@ public class MotionCalibration extends CordovaPlugin {
     private native float getQualityMagnitudeVarianceErrorNative();
     private native float getQualityWobbleErrorNative();
     private native float getQualitySphericalFitErrorNative();
+    private native void displayCallback();
     
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -105,6 +106,11 @@ public class MotionCalibration extends CordovaPlugin {
                     }
                     PluginResult fitResult = new PluginResult(PluginResult.Status.OK, fitError);
                     callbackContext.sendPluginResult(fitResult);
+                    return true;
+
+                case "displayCallback":
+                    displayCallback();
+                    callbackContext.success();
                     return true;
                     
                 default:
