@@ -11,16 +11,16 @@
             </feature>
         </config-file>
         <source-file src="src/ios/MotionCalibration.m" />
-        <header-file src="src/common/motioncalibration.h" />
-        <source-file src="src/common/motioncalibration.c" />
-        <header-file src="src/common/imuread.h" />
-        <source-file src="src/common/mahony.c" />
-        <source-file src="src/common/matrix.c" />
-        <source-file src="src/common/magcal.c" />
-        <source-file src="src/common/quality.c" />
-        <source-file src="src/common/rawdata.c" />
-        <source-file src="src/common/serialdata.c" />
-        <source-file src="src/common/visualize.c" />
+        <header-file src="src/common/motioncalibration.h" target-dir="common" />
+        <source-file src="src/common/motioncalibration.c" target-dir="common" />
+        <header-file src="src/common/imuread.h" target-dir="common" />
+        <source-file src="src/common/mahony.c" target-dir="common" />
+        <source-file src="src/common/matrix.c" target-dir="common" />
+        <source-file src="src/common/magcal.c" target-dir="common" />
+        <source-file src="src/common/quality.c" target-dir="common" />
+        <source-file src="src/common/rawdata.c" target-dir="common" />
+        <source-file src="src/common/serialdata.c" target-dir="common" />
+        <source-file src="src/common/visualize.c" target-dir="common" />
     </platform>
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
