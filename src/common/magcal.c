@@ -52,8 +52,6 @@ static void fUpdateCalibration4INV(MagCalibration_t *MagCal);
 static void fUpdateCalibration7EIG(MagCalibration_t *MagCal);
 static void fUpdateCalibration10EIG(MagCalibration_t *MagCal);
 
-
-
 // run the magnetic calibration
 int MagCal_Run(void)
 {
@@ -123,8 +121,6 @@ int MagCal_Run(void)
 	}
 	return 0;
 }
-
-
 
 // 4 element calibration using 4x4 matrix inverse
 static void fUpdateCalibration4INV(MagCalibration_t *MagCal)
@@ -285,15 +281,6 @@ static void fUpdateCalibration4INV(MagCalibration_t *MagCal)
 	MagCal->trB *= DEFAULTB;
 }
 
-
-
-
-
-
-
-
-
-
 // 7 element calibration using direct eigen-decomposition
 static void fUpdateCalibration7EIG(MagCalibration_t *MagCal)
 {
@@ -422,10 +409,6 @@ static void fUpdateCalibration7EIG(MagCalibration_t *MagCal)
 		MagCal->trV[k] = MagCal->trV[k] * DEFAULTB + (float)iOffset[k] * FXOS8700_UTPERCOUNT;
 	}
 }
-
-
-
-
 
 // 10 element calibration using direct eigen-decomposition
 static void fUpdateCalibration10EIG(MagCalibration_t *MagCal)
