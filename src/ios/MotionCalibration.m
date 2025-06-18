@@ -93,7 +93,8 @@ extern int read_ipc_file_data(const char *filename);
     }
 }
 
-extern char* result_filename;
+extern void set_result_filename(const char *filename);
+
 - (void)setResultFilename:(CDVInvokedUrlCommand*)command {
     NSString* filename = [command.arguments objectAtIndex:0];
     
@@ -103,7 +104,7 @@ extern char* result_filename;
         NSString* fullPath = [documentsPath stringByAppendingPathComponent:filename];
         
         // Set the result filename
-        result_filename = [fullPath UTF8String];
+        set_result_filename([fullPath UTF8String]);
         
         CDVPluginResult* pluginResult = [CDVPluginResult 
             resultWithStatus:CDVCommandStatus_OK];

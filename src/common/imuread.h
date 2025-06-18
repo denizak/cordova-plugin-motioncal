@@ -61,6 +61,7 @@ float quality_magnitude_variance_error(void);
 float quality_wobble_error(void);
 float quality_spherical_fit_error(void);
 short is_send_cal_available(void);
+void set_result_filename(const char *filename);
 
 // PhiEs start ==
 extern void clear_file(const char *filename);

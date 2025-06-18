@@ -473,7 +473,7 @@ int read_ipc_file_data(const char *filename)
 	return 0;
 }
 
-char *result_filename;
+char *result_filename[512];
 int write_ipc_file_data(const void *ptr, int len)
 {
 	FILE *file = fopen(result_filename, "wb");
@@ -494,3 +494,8 @@ int write_ipc_file_data(const void *ptr, int len)
 }
 
 // PhiEs end ======= 
+
+void set_result_filename(const char *filename) {
+	strncpy(result_filename, filename, sizeof(result_filename) - 1);
+    result_filename[sizeof(result_filename) - 1] = '\0';
+}

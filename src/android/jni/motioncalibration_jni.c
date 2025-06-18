@@ -56,7 +56,7 @@ Java_com_denizak_motioncalibration_MotionCalibration_setResultFilenameNative(JNI
     if (stored_result_filename != NULL) {
         strcpy(stored_result_filename, nativeFilename);
         // Set the global result_filename pointer
-        result_filename = stored_result_filename;
+        set_result_filename(stored_result_filename);
     }
     
     (*env)->ReleaseStringUTFChars(env, filename, nativeFilename);
