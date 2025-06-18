@@ -93,6 +93,7 @@ extern int read_ipc_file_data(const char *filename);
     }
 }
 
+extern char* result_filename;
 - (void)setResultFilename:(CDVInvokedUrlCommand*)command {
     NSString* filename = [command.arguments objectAtIndex:0];
     
