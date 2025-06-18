@@ -473,7 +473,7 @@ int read_ipc_file_data(const char *filename)
 	return 0;
 }
 
-char *result_filename[512];
+static char result_filename[512];
 int write_ipc_file_data(const void *ptr, int len)
 {
 	FILE *file = fopen(result_filename, "wb");
