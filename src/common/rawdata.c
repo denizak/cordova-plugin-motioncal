@@ -282,6 +282,7 @@ static uint8_t * copy_lsb_first(uint8_t *dst, float f)
 	return dst;
 }
 
+static uint8_t data_result[68];
 int send_calibration(void)
 {
 	uint8_t *p, buf[68];
@@ -331,6 +332,13 @@ int send_calibration(void)
 	}
 	*p++ = crc;   // 2 byte crc check
 	*p++ = crc >> 8;
+
+	memcpy(data_result, buf, 68);
+
 	return write_ipc_file_data(buf, 68);
 }
 
+const uint8_t* get_calibration_data(void)
+{
+    return data_result;
+}

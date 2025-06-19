@@ -16,6 +16,7 @@
 - (void)getQualityMagnitudeVarianceError:(CDVInvokedUrlCommand*)command;
 - (void)getQualityWobbleError:(CDVInvokedUrlCommand*)command;
 - (void)getQualitySphericalFitError:(CDVInvokedUrlCommand*)command;
+- (void)getCalibrationData:(CDVInvokedUrlCommand*)command;
 
 @end
 
@@ -219,6 +220,33 @@ extern void display_callback(void);
         resultWithStatus:CDVCommandStatus_OK];
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+extern const uint8_t* get_calibration_data(void);
+
+- (void)getCalibrationData:(CDVInvokedUrlCommand*)command {
+    // Get the calibration data from C function
+    const uint8_t* data = get_calibration_data();
+    
+    if (data) {
+        // Convert C array to NSData
+        NSData* calibrationData = [NSData dataWithBytes:data length:68];
+        
+        // Convert to base64 string for JavaScript
+        NSString* base64String = [calibrationData base64EncodedStringWithOptions:0];
+        
+        CDVPluginResult* pluginResult = [CDVPluginResult 
+            resultWithStatus:CDVCommandStatus_OK 
+            messageAsString:base64String];
+        
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    } else {
+        CDVPluginResult* pluginResult = [CDVPluginResult 
+            resultWithStatus:CDVCommandStatus_ERROR 
+            messageAsString:@"No calibration data available"];
+        
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }
 }
 
 @end

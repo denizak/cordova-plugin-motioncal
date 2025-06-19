@@ -94,6 +94,16 @@ var MotionCalibration = {
     displayCallback: function(successCallback, errorCallback) {
         exec(successCallback, errorCallback, "MotionCalibration", "displayCallback", []);
     },
+
+    /**
+     * Get the calibration data as a base64 encoded string
+     * 
+     * @param {Function} successCallback - Success callback with base64 calibration data
+     * @param {Function} errorCallback - Error callback
+     */
+    getCalibrationData: function(successCallback, errorCallback) {
+        exec(successCallback, errorCallback, "MotionCalibration", "getCalibrationData", []);
+    }
 };
 
 module.exports = MotionCalibration;

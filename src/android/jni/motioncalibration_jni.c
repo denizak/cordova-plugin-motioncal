@@ -104,3 +104,28 @@ Java_com_denizak_motioncalibration_MotionCalibration_getQualitySphericalFitError
     LOGI("Spherical fit error: %f", result);
     return (jfloat)result;
 }
+
+JNIEXPORT jbyteArray JNICALL
+Java_com_denizak_motioncalibration_MotionCalibration_getCalibrationDataNative(JNIEnv *env, jobject thiz) {
+    LOGI("Getting calibration data");
+    
+    const uint8_t* data = get_calibration_data();
+    
+    if (data != NULL) {
+        // Create a new byte array
+        jbyteArray result = (*env)->NewByteArray(env, 68);
+        if (result == NULL) {
+            LOGE("Failed to create byte array");
+            return NULL;
+        }
+        
+        // Copy the data to the Java byte array
+        (*env)->SetByteArrayRegion(env, result, 0, 68, (const jbyte*)data);
+        
+        LOGI("Calibration data retrieved successfully");
+        return result;
+    } else {
+        LOGE("No calibration data available");
+        return NULL;
+    }
+}
