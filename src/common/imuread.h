@@ -48,20 +48,20 @@ void cal1_data(const float *data);
 void cal2_data(const float *data);
 void calibration_confirmed(void);
 void raw_data(const int16_t *data);
-int send_calibration(void);
+extern int send_calibration(void);
 void visualize_init(void);
 void apply_calibration(int16_t rawx, int16_t rawy, int16_t rawz, Point_t *out);
-void display_callback(void);
+extern void display_callback(void);
 void resize_callback(int width, int height);
 int MagCal_Run(void);
 void quality_reset(void);
 void quality_update(const Point_t *point);
-float quality_surface_gap_error(void);
-float quality_magnitude_variance_error(void);
-float quality_wobble_error(void);
-float quality_spherical_fit_error(void);
-short is_send_cal_available(void);
-void set_result_filename(const char *filename);
+extern float quality_surface_gap_error(void);
+extern float quality_magnitude_variance_error(void);
+extern float quality_wobble_error(void);
+extern float quality_spherical_fit_error(void);
+extern short is_send_cal_available(void);
+extern void set_result_filename(const char *filename);
 
 // PhiEs start ==
 extern void clear_file(const char *filename);
