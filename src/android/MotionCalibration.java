@@ -24,7 +24,8 @@ public class MotionCalibration extends CordovaPlugin {
     private native float getQualityMagnitudeVarianceErrorNative();
     private native float getQualityWobbleErrorNative();
     private native float getQualitySphericalFitErrorNative();
-    private native void displayCallback();
+    private native void displayCallbackNative();
+    private native byte[] getCalibrationDataNative();
     
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -109,8 +110,19 @@ public class MotionCalibration extends CordovaPlugin {
                     return true;
 
                 case "displayCallback":
-                    displayCallback();
+                    displayCallbackNative();
                     callbackContext.success();
+                    return true;
+                    
+                case "getCalibrationData":
+                    byte[] calibrationData = getCalibrationDataNative();
+                    if (calibrationData != null) {
+                        // Convert byte array to base64 string for JavaScript
+                        String base64Data = android.util.Base64.encodeToString(calibrationData, android.util.Base64.DEFAULT);
+                        callbackContext.success(base64Data);
+                    } else {
+                        callbackContext.error("No calibration data available");
+                    }
                     return true;
                     
                 default:
