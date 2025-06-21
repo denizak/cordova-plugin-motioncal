@@ -72,7 +72,7 @@ Java_com_denizak_motioncalibration_MotionCalibration_sendCalibrationNative(JNIEn
 }
 
 JNIEXPORT void JNICALL
-Java_com_denizak_motioncalibration_MotionCalibration_displayCallback(JNIEnv *env, jobject thiz) {
+Java_com_denizak_motioncalibration_MotionCalibration_displayCallbackNative(JNIEnv *env, jobject thiz) {
     LOGI("display callback");
     display_callback();
 }

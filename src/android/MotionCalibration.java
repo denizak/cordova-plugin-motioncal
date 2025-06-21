@@ -124,7 +124,7 @@ public class MotionCalibration extends CordovaPlugin {
                         callbackContext.error("No calibration data available");
                     }
                     return true;
-                    
+
                 default:
                     return false;
             }
