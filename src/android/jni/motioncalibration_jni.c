@@ -129,3 +129,31 @@ Java_com_denizak_motioncalibration_MotionCalibration_getCalibrationDataNative(JN
         return NULL;
     }
 }
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_denizak_motioncalibration_MotionCalibration_convertDrawPoints(JNIEnv *env, jobject thiz) {
+    LOGI("Converting draw points");
+    
+    // Use the getter functions instead of direct access
+    float* points = get_draw_points();
+    int count = get_draw_points_count();
+    
+    if (!points || count <= 0) {
+        LOGE("No draw points available");
+        return NULL;
+    }
+    
+    jclass floatArrayClass = (*env)->FindClass(env, "[F");
+    jobjectArray result = (*env)->NewObjectArray(env, count, floatArrayClass, NULL);
+
+    for (int i = 0; i < count; i++) {
+        jfloat tempArray[3] = {points[i*3], points[i*3+1], points[i*3+2]};  // Correct indexing
+        jfloatArray floatArray = (*env)->NewFloatArray(env, 3);
+        (*env)->SetFloatArrayRegion(env, floatArray, 0, 3, tempArray);
+        (*env)->SetObjectArrayElement(env, result, i, floatArray);
+        (*env)->DeleteLocalRef(env, floatArray);
+    }
+    
+    LOGI("Draw points converted successfully");
+    return result;
+}

@@ -68,6 +68,8 @@ extern void clear_file(const char *filename);
 extern int read_ipc_file_data(const char *filename);
 extern int write_ipc_file_data(const void *ptr, int len);
 extern const uint8_t* get_calibration_data(void);
+extern float* get_draw_points(void);
+extern int get_draw_points_count(void);
 // PhiEs end ======
 
 // magnetic calibration & buffer structure

@@ -3,6 +3,7 @@
 #import <Cordova/CDV.h>
 #include "motioncalibration.h"
 #include "imuread.h"
+#include <math.h>  // For isnan() function
 
 @interface MotionCalibration : CDVPlugin
 
@@ -16,7 +17,9 @@
 - (void)getQualityMagnitudeVarianceError:(CDVInvokedUrlCommand*)command;
 - (void)getQualityWobbleError:(CDVInvokedUrlCommand*)command;
 - (void)getQualitySphericalFitError:(CDVInvokedUrlCommand*)command;
+- (void)displayCallback:(CDVInvokedUrlCommand*)command;
 - (void)getCalibrationData:(CDVInvokedUrlCommand*)command;
+- (void)getDrawPoints:(CDVInvokedUrlCommand*)command;
 
 @end
 
@@ -123,7 +126,6 @@ extern void set_result_filename(const char *filename);
 extern void raw_data_reset(void);
 extern int send_calibration(void);
 
-// Add this method to expose the function
 - (void)sendCalibration:(CDVInvokedUrlCommand*)command {
     // Call the C function on a background thread to avoid blocking the main thread
     [self.commandDelegate runInBackground:^{
@@ -244,6 +246,41 @@ extern const uint8_t* get_calibration_data(void);
         CDVPluginResult* pluginResult = [CDVPluginResult 
             resultWithStatus:CDVCommandStatus_ERROR 
             messageAsString:@"No calibration data available"];
+        
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }
+}
+
+extern float *get_draw_points(void);
+extern int get_draw_points_count(void);
+
+- (void)getDrawPoints:(CDVInvokedUrlCommand*)command {
+    // Get draw points from C function
+    float* points = get_draw_points();
+    int count = get_draw_points_count();
+    
+    if (points && count > 0) {
+        NSMutableArray* pointsArray = [[NSMutableArray alloc] init];
+        
+        // Convert C array to NSArray of arrays (each point has x,y,z coordinates)
+        for (int i = 0; i < count; i++) {
+            NSArray* point = @[
+                @(points[i * 3]),     // x
+                @(points[i * 3 + 1]), // y
+                @(points[i * 3 + 2])  // z
+            ];
+            [pointsArray addObject:point];
+        }
+        
+        CDVPluginResult* pluginResult = [CDVPluginResult 
+            resultWithStatus:CDVCommandStatus_OK 
+            messageAsArray:pointsArray];
+        
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    } else {
+        CDVPluginResult* pluginResult = [CDVPluginResult 
+            resultWithStatus:CDVCommandStatus_ERROR 
+            messageAsString:@"No draw points available"];
         
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }

@@ -26,6 +26,7 @@ public class MotionCalibration extends CordovaPlugin {
     private native float getQualitySphericalFitErrorNative();
     private native void displayCallbackNative();
     private native byte[] getCalibrationDataNative();
+    private native float[][] convertDrawPoints();
     
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -123,6 +124,29 @@ public class MotionCalibration extends CordovaPlugin {
                     } else {
                         callbackContext.error("No calibration data available");
                     }
+                    return true;
+
+                case "getDrawPoints":
+                    cordova.getThreadPool().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                float[][] points = convertDrawPoints();
+                                // Convert to JSON array for JavaScript
+                                JSONArray jsonPoints = new JSONArray();
+                                for (float[] point : points) {
+                                    JSONArray jsonPoint = new JSONArray();
+                                    for (float coord : point) {
+                                        jsonPoint.put(coord);
+                                    }
+                                    jsonPoints.put(jsonPoint);
+                                }
+                                callbackContext.success(jsonPoints);
+                            } catch (Exception e) {
+                                callbackContext.error("Error getting draw points: " + e.getMessage());
+                            }
+                        }
+                    });
                     return true;
 
                 default:

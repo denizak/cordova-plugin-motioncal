@@ -10,7 +10,7 @@ var MotionCalibration = {
     },
 
     isSendCalAvailableValue: function(successCallback, errorCallback) {
-        exec(successCallback, errorCallback, "MotionCalibration", "isSendcalAvailableValue", []);
+        exec(successCallback, errorCallback, "MotionCalibration", "isSendCalAvailableValue", []);
     },
 
     /**
@@ -103,6 +103,16 @@ var MotionCalibration = {
      */
     getCalibrationData: function(successCallback, errorCallback) {
         exec(successCallback, errorCallback, "MotionCalibration", "getCalibrationData", []);
+    },
+
+    /**
+     * Get the draw points for visualization
+     * 
+     * @param {Function} successCallback - Success callback with points array
+     * @param {Function} errorCallback - Error callback
+     */
+    getDrawPoints: function(successCallback, errorCallback) {
+        exec(successCallback, errorCallback, "MotionCalibration", "getDrawPoints", []);
     }
 };
 

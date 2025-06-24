@@ -4,7 +4,7 @@ MagCalibration_t magcal;
 
 Quaternion_t current_orientation;
 
-float draw_points[MAGBUFFSIZE * 3];
+static float draw_points[MAGBUFFSIZE * 3];  // Each point has x,y,z coordinates
 
 void apply_calibration(int16_t rawx, int16_t rawy, int16_t rawz, Point_t *out)
 {
@@ -75,9 +75,9 @@ void display_callback(void)
     if (invert_q3) orientation.q3 *= -1.0f;
     quad_to_rotation(&orientation, rotation);
     for (i=0; i < MAGBUFFSIZE; i++) {
-        draw_points[i] = 0.0f;
-        draw_points[i+1] = 0.0f;
-        draw_points[i+2] = 0.0f;
+        draw_points[i*3] = 0.0f;      // Fix indexing
+        draw_points[i*3+1] = 0.0f;    // Fix indexing
+        draw_points[i*3+2] = 0.0f;    // Fix indexing
         if (magcal.valid[i]) {
             apply_calibration(magcal.BpFast[0][i], magcal.BpFast[1][i], magcal.BpFast[2][i], &point);
             quality_update(&point);
@@ -85,9 +85,19 @@ void display_callback(void)
             if (invert_x) draw.x *= -1.0f;
             if (invert_y) draw.y *= -1.0f;
             if (invert_z) draw.z *= -1.0f;
-            draw_points[i] = draw.x * xscale + xoff;
-            draw_points[i+1] = draw.z * yscale + yoff;
-            draw_points[i+2] = draw.y * zscale + zoff;
+            draw_points[i*3] = draw.x * xscale + xoff;
+            draw_points[i*3+1] = draw.z * yscale + yoff;
+            draw_points[i*3+2] = draw.y * zscale + zoff;
         }
     }
+}
+
+float* get_draw_points(void)
+{
+    return draw_points;
+}
+
+int get_draw_points_count(void)
+{
+    return MAGBUFFSIZE;
 }
