@@ -40,9 +40,9 @@
         <source-file src="src/common" target-dir="jni/common" />
         
         <!-- Copy precompiled native libraries -->
-        <lib-file src="src/android/jniLibs/arm64-v8a/libmotioncalibration.so" arch="arm64-v8a" />
-        <lib-file src="src/android/jniLibs/armeabi-v7a/libmotioncalibration.so" arch="armeabi-v7a" />
-        <lib-file src="src/android/jniLibs/x86/libmotioncalibration.so" arch="x86" />
-        <lib-file src="src/android/jniLibs/x86_64/libmotioncalibration.so" arch="x86_64" />
+        <resource-file src="src/android/jniLibs/arm64-v8a/libmotioncalibration.so" target="jniLibs/arm64-v8a/libmotioncalibration.so" />
+        <resource-file src="src/android/jniLibs/armeabi-v7a/libmotioncalibration.so" target="jniLibs/armeabi-v7a/libmotioncalibration.so" />
+        <resource-file src="src/android/jniLibs/x86/libmotioncalibration.so" target="jniLibs/x86/libmotioncalibration.so" />
+        <resource-file src="src/android/jniLibs/x86_64/libmotioncalibration.so" target="jniLibs/x86_64/libmotioncalibration.so" />
     </platform>
 </plugin>
