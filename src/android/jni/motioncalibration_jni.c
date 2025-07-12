@@ -157,3 +157,10 @@ Java_com_denizak_motioncalibration_MotionCalibration_convertDrawPoints(JNIEnv *e
     LOGI("Draw points converted successfully");
     return result;
 }
+
+JNIEXPORT void JNICALL
+Java_com_denizak_motioncalibration_MotionCalibration_resetRawDataNative(JNIEnv *env, jobject thiz) {
+    LOGI("Resetting raw calibration data");
+    raw_data_reset();
+    LOGI("Raw data reset completed");
+}

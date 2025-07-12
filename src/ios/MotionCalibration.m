@@ -20,6 +20,7 @@
 - (void)displayCallback:(CDVInvokedUrlCommand*)command;
 - (void)getCalibrationData:(CDVInvokedUrlCommand*)command;
 - (void)getDrawPoints:(CDVInvokedUrlCommand*)command;
+- (void)resetRawData:(CDVInvokedUrlCommand*)command;
 
 @end
 
@@ -284,6 +285,19 @@ extern int get_draw_points_count(void);
         
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
+}
+
+extern void raw_data_reset(void);
+
+- (void)resetRawData:(CDVInvokedUrlCommand*)command {
+    // Call the C function
+    raw_data_reset();
+    
+    // Return success to JavaScript
+    CDVPluginResult* pluginResult = [CDVPluginResult 
+        resultWithStatus:CDVCommandStatus_OK];
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 @end

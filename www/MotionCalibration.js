@@ -113,6 +113,16 @@ var MotionCalibration = {
      */
     getDrawPoints: function(successCallback, errorCallback) {
         exec(successCallback, errorCallback, "MotionCalibration", "getDrawPoints", []);
+    },
+
+    /**
+     * Reset raw calibration data
+     * 
+     * @param {Function} successCallback - Success callback
+     * @param {Function} errorCallback - Error callback
+     */
+    resetRawData: function(successCallback, errorCallback) {
+        exec(successCallback, errorCallback, "MotionCalibration", "resetRawData", []);
     }
 };
 

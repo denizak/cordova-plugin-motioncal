@@ -27,6 +27,7 @@ public class MotionCalibration extends CordovaPlugin {
     private native void displayCallbackNative();
     private native byte[] getCalibrationDataNative();
     private native float[][] convertDrawPoints();
+    private native void resetRawDataNative();
     
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -147,6 +148,11 @@ public class MotionCalibration extends CordovaPlugin {
                             }
                         }
                     });
+                    return true;
+
+                case "resetRawData":
+                    resetRawDataNative();
+                    callbackContext.success();
                     return true;
 
                 default:
