@@ -70,6 +70,7 @@ extern int write_ipc_file_data(const void *ptr, int len);
 extern const uint8_t* get_calibration_data(void);
 extern float* get_draw_points(void);
 extern int get_draw_points_count(void);
+extern void clear_draw_points(void); // <-- Added function declaration here
 // PhiEs end ======
 
 // magnetic calibration & buffer structure

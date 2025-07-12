@@ -1,5 +1,7 @@
 #include "imuread.h"
 
+extern float draw_points[MAGBUFFSIZE * 3];
+
 static int rawcount=OVERSAMPLE_RATIO;
 static AccelSensor_t accel;
 static MagSensor_t   mag;
@@ -20,6 +22,9 @@ void raw_data_reset(void)
 	magcal.FitError = 100.0f;
 	magcal.FitErrorAge = 100.0f;
 	magcal.B = 50.0f;
+    
+    // Clear draw points
+    clear_draw_points();
 }
 
 static int choose_discard_magcal(void)

@@ -101,3 +101,8 @@ int get_draw_points_count(void)
 {
     return MAGBUFFSIZE;
 }
+
+void clear_draw_points(void)
+{
+    memset(draw_points, 0, sizeof(draw_points));
+}
