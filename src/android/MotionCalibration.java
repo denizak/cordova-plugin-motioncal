@@ -28,6 +28,9 @@ public class MotionCalibration extends CordovaPlugin {
     private native byte[] getCalibrationDataNative();
     private native float[][] convertDrawPoints();
     private native void resetRawDataNative();
+    private native float[] getHardIronOffsetNative();
+    private native float[][] getSoftIronMatrixNative();
+    private native float getGeomagneticFieldMagnitudeNative();
     
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -153,6 +156,42 @@ public class MotionCalibration extends CordovaPlugin {
                 case "resetRawData":
                     resetRawDataNative();
                     callbackContext.success();
+                    return true;
+
+                case "getHardIronOffset":
+                    float[] hardIronOffset = getHardIronOffsetNative();
+                    if (hardIronOffset != null) {
+                        JSONArray offsetArray = new JSONArray();
+                        for (float value : hardIronOffset) {
+                            offsetArray.put(value);
+                        }
+                        callbackContext.success(offsetArray);
+                    } else {
+                        callbackContext.error("Failed to get hard iron offset");
+                    }
+                    return true;
+
+                case "getSoftIronMatrix":
+                    float[][] softIronMatrix = getSoftIronMatrixNative();
+                    if (softIronMatrix != null) {
+                        JSONArray matrixArray = new JSONArray();
+                        for (float[] row : softIronMatrix) {
+                            JSONArray rowArray = new JSONArray();
+                            for (float value : row) {
+                                rowArray.put(value);
+                            }
+                            matrixArray.put(rowArray);
+                        }
+                        callbackContext.success(matrixArray);
+                    } else {
+                        callbackContext.error("Failed to get soft iron matrix");
+                    }
+                    return true;
+
+                case "getGeomagneticFieldMagnitude":
+                    float magnitude = getGeomagneticFieldMagnitudeNative();
+                    PluginResult magnitudeResult = new PluginResult(PluginResult.Status.OK, magnitude);
+                    callbackContext.sendPluginResult(magnitudeResult);
                     return true;
 
                 default:

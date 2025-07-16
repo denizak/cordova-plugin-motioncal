@@ -106,3 +106,26 @@ void clear_draw_points(void)
 {
     memset(draw_points, 0, sizeof(draw_points));
 }
+
+// Implementation of MagCalibration_t property accessor functions
+void get_hard_iron_offset(float V[3])
+{
+    V[0] = magcal.V[0];
+    V[1] = magcal.V[1];
+    V[2] = magcal.V[2];
+}
+
+void get_soft_iron_matrix(float invW[3][3])
+{
+    int i, j;
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < 3; j++) {
+            invW[i][j] = magcal.invW[i][j];
+        }
+    }
+}
+
+float get_geomagnetic_field_magnitude(void)
+{
+    return magcal.B;
+}

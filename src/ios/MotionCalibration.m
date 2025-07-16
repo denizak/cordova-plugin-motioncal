@@ -21,6 +21,9 @@
 - (void)getCalibrationData:(CDVInvokedUrlCommand*)command;
 - (void)getDrawPoints:(CDVInvokedUrlCommand*)command;
 - (void)resetRawData:(CDVInvokedUrlCommand*)command;
+- (void)getHardIronOffset:(CDVInvokedUrlCommand*)command;
+- (void)getSoftIronMatrix:(CDVInvokedUrlCommand*)command;
+- (void)getGeomagneticFieldMagnitude:(CDVInvokedUrlCommand*)command;
 
 @end
 
@@ -296,6 +299,47 @@ extern void raw_data_reset(void);
     // Return success to JavaScript
     CDVPluginResult* pluginResult = [CDVPluginResult 
         resultWithStatus:CDVCommandStatus_OK];
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+// iOS methods to expose MagCalibration_t properties
+- (void)getHardIronOffset:(CDVInvokedUrlCommand*)command {
+    float V[3];
+    get_hard_iron_offset(V);
+    
+    NSArray* offsetArray = @[@(V[0]), @(V[1]), @(V[2])];
+    
+    CDVPluginResult* pluginResult = [CDVPluginResult 
+        resultWithStatus:CDVCommandStatus_OK 
+        messageAsArray:offsetArray];
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)getSoftIronMatrix:(CDVInvokedUrlCommand*)command {
+    float invW[3][3];
+    get_soft_iron_matrix(invW);
+    
+    NSMutableArray* matrixArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < 3; i++) {
+        NSArray* row = @[@(invW[i][0]), @(invW[i][1]), @(invW[i][2])];
+        [matrixArray addObject:row];
+    }
+    
+    CDVPluginResult* pluginResult = [CDVPluginResult 
+        resultWithStatus:CDVCommandStatus_OK 
+        messageAsArray:matrixArray];
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)getGeomagneticFieldMagnitude:(CDVInvokedUrlCommand*)command {
+    float magnitude = get_geomagnetic_field_magnitude();
+    
+    CDVPluginResult* pluginResult = [CDVPluginResult 
+        resultWithStatus:CDVCommandStatus_OK 
+        messageAsDouble:(double)magnitude];
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }

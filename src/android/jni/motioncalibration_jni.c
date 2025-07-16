@@ -164,3 +164,50 @@ Java_com_denizak_motioncalibration_MotionCalibration_resetRawDataNative(JNIEnv *
     raw_data_reset();
     LOGI("Raw data reset completed");
 }
+
+// JNI functions to expose MagCalibration_t properties
+JNIEXPORT jfloatArray JNICALL
+Java_com_denizak_motioncalibration_MotionCalibration_getHardIronOffsetNative(JNIEnv *env, jobject thiz) {
+    LOGI("Getting hard iron offset");
+    
+    float V[3];
+    get_hard_iron_offset(V);
+    
+    jfloatArray result = (*env)->NewFloatArray(env, 3);
+    if (result == NULL) {
+        LOGE("Failed to create float array for hard iron offset");
+        return NULL;
+    }
+    
+    (*env)->SetFloatArrayRegion(env, result, 0, 3, V);
+    LOGI("Hard iron offset: [%f, %f, %f]", V[0], V[1], V[2]);
+    return result;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_denizak_motioncalibration_MotionCalibration_getSoftIronMatrixNative(JNIEnv *env, jobject thiz) {
+    LOGI("Getting soft iron matrix");
+    
+    float invW[3][3];
+    get_soft_iron_matrix(invW);
+    
+    jclass floatArrayClass = (*env)->FindClass(env, "[F");
+    jobjectArray result = (*env)->NewObjectArray(env, 3, floatArrayClass, NULL);
+    
+    for (int i = 0; i < 3; i++) {
+        jfloatArray row = (*env)->NewFloatArray(env, 3);
+        (*env)->SetFloatArrayRegion(env, row, 0, 3, invW[i]);
+        (*env)->SetObjectArrayElement(env, result, i, row);
+        (*env)->DeleteLocalRef(env, row);
+    }
+    
+    LOGI("Soft iron matrix retrieved successfully");
+    return result;
+}
+
+JNIEXPORT jfloat JNICALL
+Java_com_denizak_motioncalibration_MotionCalibration_getGeomagneticFieldMagnitudeNative(JNIEnv *env, jobject thiz) {
+    float result = get_geomagnetic_field_magnitude();
+    LOGI("Geomagnetic field magnitude: %f", result);
+    return (jfloat)result;
+}

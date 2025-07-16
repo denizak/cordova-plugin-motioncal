@@ -123,6 +123,36 @@ var MotionCalibration = {
      */
     resetRawData: function(successCallback, errorCallback) {
         exec(successCallback, errorCallback, "MotionCalibration", "resetRawData", []);
+    },
+
+    /**
+     * Get the hard iron offset values (V[3]) from MagCalibration_t
+     * 
+     * @param {Function} successCallback - Success callback with [x, y, z] offset values
+     * @param {Function} errorCallback - Error callback
+     */
+    getHardIronOffset: function(successCallback, errorCallback) {
+        exec(successCallback, errorCallback, "MotionCalibration", "getHardIronOffset", []);
+    },
+
+    /**
+     * Get the soft iron matrix (invW[3][3]) from MagCalibration_t
+     * 
+     * @param {Function} successCallback - Success callback with 3x3 matrix array
+     * @param {Function} errorCallback - Error callback
+     */
+    getSoftIronMatrix: function(successCallback, errorCallback) {
+        exec(successCallback, errorCallback, "MotionCalibration", "getSoftIronMatrix", []);
+    },
+
+    /**
+     * Get the geomagnetic field magnitude (B) from MagCalibration_t
+     * 
+     * @param {Function} successCallback - Success callback with magnitude value
+     * @param {Function} errorCallback - Error callback
+     */
+    getGeomagneticFieldMagnitude: function(successCallback, errorCallback) {
+        exec(successCallback, errorCallback, "MotionCalibration", "getGeomagneticFieldMagnitude", []);
     }
 };
 

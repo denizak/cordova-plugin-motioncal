@@ -73,6 +73,11 @@ extern int get_draw_points_count(void);
 extern void clear_draw_points(void); // <-- Added function declaration here
 // PhiEs end ======
 
+// Expose MagCalibration_t properties
+extern void get_hard_iron_offset(float V[3]);
+extern void get_soft_iron_matrix(float invW[3][3]);
+extern float get_geomagnetic_field_magnitude(void);
+
 // magnetic calibration & buffer structure
 typedef struct {
     float V[3];                  // current hard iron offset x, y, z, (uT)
