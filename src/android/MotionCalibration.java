@@ -7,12 +7,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 public class MotionCalibration extends CordovaPlugin {
-    
+
     // Load the native library
     static {
         System.loadLibrary("motioncalibration");
     }
-    
+
     // Native method declarations
     private native void updateBValueNative(float bValue);
     private native float getBValueNative();
@@ -31,7 +31,8 @@ public class MotionCalibration extends CordovaPlugin {
     private native float[] getHardIronOffsetNative();
     private native float[][] getSoftIronMatrixNative();
     private native float getGeomagneticFieldMagnitudeNative();
-    
+    private native void clearDrawPointsNative();
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         try {
@@ -41,32 +42,32 @@ public class MotionCalibration extends CordovaPlugin {
                     updateBValueNative(bValue);
                     callbackContext.success();
                     return true;
-                    
+
                 case "getBValue":
                     float result = getBValueNative();
                     PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, result);
                     callbackContext.sendPluginResult(pluginResult);
                     return true;
-                    
+
                 case "isSendCalAvailableValue":
                     short isAvailable = isSendCalAvailableNative();
                     callbackContext.success((int) isAvailable);
                     return true;
-                    
+
                 case "readDataFromFile":
                     String filename = args.getString(0);
                     String fullPath = cordova.getActivity().getFilesDir().getAbsolutePath() + "/" + filename;
                     int readResult = readDataFromFileNative(fullPath);
                     callbackContext.success(readResult);
                     return true;
-                    
+
                 case "setResultFilename":
                     String resultFilename = args.getString(0);
                     String resultFullPath = cordova.getActivity().getFilesDir().getAbsolutePath() + "/" + resultFilename;
                     setResultFilenameNative(resultFullPath);
                     callbackContext.success();
                     return true;
-                    
+
                 case "sendCalibration":
                     cordova.getThreadPool().execute(new Runnable() {
                         @Override
@@ -77,7 +78,7 @@ public class MotionCalibration extends CordovaPlugin {
                         }
                     });
                     return true;
-                    
+
                 case "getQualitySurfaceGapError":
                     float gapError = getQualitySurfaceGapErrorNative();
                     if (Float.isNaN(gapError)) {
@@ -86,7 +87,7 @@ public class MotionCalibration extends CordovaPlugin {
                     PluginResult gapResult = new PluginResult(PluginResult.Status.OK, gapError);
                     callbackContext.sendPluginResult(gapResult);
                     return true;
-                    
+
                 case "getQualityMagnitudeVarianceError":
                     float varianceError = getQualityMagnitudeVarianceErrorNative();
                     if (Float.isNaN(varianceError)) {
@@ -95,7 +96,7 @@ public class MotionCalibration extends CordovaPlugin {
                     PluginResult varianceResult = new PluginResult(PluginResult.Status.OK, varianceError);
                     callbackContext.sendPluginResult(varianceResult);
                     return true;
-                    
+
                 case "getQualityWobbleError":
                     float wobbleError = getQualityWobbleErrorNative();
                     if (Float.isNaN(wobbleError)) {
@@ -104,7 +105,7 @@ public class MotionCalibration extends CordovaPlugin {
                     PluginResult wobbleResult = new PluginResult(PluginResult.Status.OK, wobbleError);
                     callbackContext.sendPluginResult(wobbleResult);
                     return true;
-                    
+
                 case "getQualitySphericalFitError":
                     float fitError = getQualitySphericalFitErrorNative();
                     if (Float.isNaN(fitError)) {
@@ -118,7 +119,7 @@ public class MotionCalibration extends CordovaPlugin {
                     displayCallbackNative();
                     callbackContext.success();
                     return true;
-                    
+
                 case "getCalibrationData":
                     byte[] calibrationData = getCalibrationDataNative();
                     if (calibrationData != null) {
@@ -192,6 +193,11 @@ public class MotionCalibration extends CordovaPlugin {
                     float magnitude = getGeomagneticFieldMagnitudeNative();
                     PluginResult magnitudeResult = new PluginResult(PluginResult.Status.OK, magnitude);
                     callbackContext.sendPluginResult(magnitudeResult);
+                    return true;
+
+                case "clearDrawPoints":
+                    clearDrawPointsNative();
+                    callbackContext.success();
                     return true;
 
                 default:

@@ -211,3 +211,10 @@ Java_com_denizak_motioncalibration_MotionCalibration_getGeomagneticFieldMagnitud
     LOGI("Geomagnetic field magnitude: %f", result);
     return (jfloat)result;
 }
+
+JNIEXPORT void JNICALL
+Java_com_denizak_motioncalibration_MotionCalibration_clearDrawPointsNative(JNIEnv *env, jobject thiz) {
+    LOGI("Clearing draw points");
+    clear_draw_points();
+    LOGI("Draw points cleared successfully");
+}
