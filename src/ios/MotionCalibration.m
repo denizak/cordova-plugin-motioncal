@@ -350,7 +350,7 @@ extern void clear_draw_points(void);
 - (void)clearDrawPoints:(CDVInvokedUrlCommand*)command {
     // Call the C function
     clear_draw_points();
-
+    NSLog(@"Clear draw points in ObjC");
     // Return success to JavaScript
     CDVPluginResult* pluginResult = [CDVPluginResult
         resultWithStatus:CDVCommandStatus_OK];
